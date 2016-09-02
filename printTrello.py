@@ -23,33 +23,31 @@ def printCardHtml(card, file):
 	file.write("<head>\n")
 	file.write("\t<title>" + card['name'] + "</title>\n")
 	file.write("\t<link rel=\"stylesheet\" type=\"text/css\" href=\"main.css\">\n")
-	file.write("</head>\n\n")
+	file.write("</head>\n")
 	file.write("<body>\n\n")
 	# good stuff starts here
 	file.write("<div id=\"container-wrapper\">\n")	# double-div to adjust width
 	file.write("<div id=\"container\">\n")	# whole body div
-	file.write("<div id=\"header\">\n")		# holds title and description
-	file.write("<h1>" + card['name'] + "</h1>\n")
-	file.write("<p id=\"description\">" + card['desc'] + "</p>\n")
-	file.write("</div>\n")					# id=header
-	file.write("<div id=\"content-wrapper\">\n")	# double-div to adjust width
-	file.write("<div id=\"content\">\n")	# holds all the checklists
+	file.write("\t<div id=\"header\">\n")		# holds title and description
+	file.write("\t\t<h1>" + card['name'] + "</h1>\n")
+	file.write("\t\t<p id=\"description\">" + card['desc'] + "</p>\n")
+	file.write("\t</div>\n")					# id=header
+	file.write("\t<div id=\"content\">\n")	# holds all the checklists
 	for checklist in card['checklists']:
-		file.write("\n<div class=\"checklist\">\n")	# each checklist gets its own div
-		file.write("\t<h3>" + checklist['name'] + "</h3>\n")	# checklist name
-		file.write("\t<ol>\n")					# start a list
+		file.write("\t\t<div class=\"checklist\">\n")	# each checklist gets its own div
+		file.write("\t\t\t<h3>" + checklist['name'] + "</h3>\n")	# checklist name
+		file.write("\t\t\t<ol>\n")					# start a list
 		for item in checklist['checkItems']:
-			file.write("\t\t<li>")				# start a list item
+			file.write("\t\t\t\t<li>")				# start a list item
 			if item['state'] == 'incomplete':	# unchecked in trello
 				file.write(htmlCheckbox['open'])
 			elif item['state'] == 'complete':	# checked in trello
 				file.write(htmlCheckbox['checked'])
 			file.write("\t" + item['name']) 	# the checklist item text
 			file.write("</li>\n")	# end the list item, like a good boy
-		file.write("\t</ol>\n")		# end the list
-		file.write("</div>\n")		# class=checklist
-	file.write("</div>\n")			# id=content
-	file.write("</div>\n")			# id=content-wrapper
+		file.write("\t\t\t</ol>\n")		# end the list
+		file.write("\t\t</div>\n")		# class=checklist
+	file.write("\t</div>\n")			# id=content
 	file.write("</div>\n")			# id=container
 	file.write("</div>\n")			# id=container-wrapper
 	# finish up the html page
@@ -61,7 +59,6 @@ def printCardHtml(card, file):
 try:
 	jsonFile = open(sys.path[0] + "\card.json", 'r')
 except:
-	print("!!!path!!!", )
 	sys.exit("Error opening card.json")
 
 # try to start the input file, or fail with message

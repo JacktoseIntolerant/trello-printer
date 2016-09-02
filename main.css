@@ -18,12 +18,8 @@ body {
 	margin-bottom: 20px;
 }
 
-#content-wrapper {
-	margin-top: 20px;
-}
-
 #content {
-	margin: 0px;
+	margin-top: 20px;
 	background-color: #f2f2f2;
 }
 
